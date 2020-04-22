@@ -4,22 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Survey Page</title>
+    <!-- Links for bootstrap and jquery -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <!-- S<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 <body>
     <div class = "container">
         <h1>Survey Questions</h1><br>
+        <hr>
         <h3>About you</h3>
         <form role="form">
             <div class="form-group">
                 <label for="name">Name (Required)</label><br>
-                <input type="text" id="name" name="name"><br>
+                <input type="text" id="name" name="name" class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="photo">Photo Link (Required)</label><br>
-                <input type="text" id="photo" name="photo"><br>
+                <label for="photo">Photo Link (Required)</label>
+                <input type="text" id="photo" name="photo"  class="form-control" required><br>
             </div>
+            <hr>
             <div class="form-group">
                 <!-- <label for="q1"> -->
                     <h3>Question 1</h3>
@@ -160,8 +165,9 @@
                 <option value="5">5 (Strongly Agree)</option>
                 </select>
             </div><br>
-            <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit">Submit</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block submit">Submit</button>
         </form><br>
+        <hr>
 
         <footer class="footer">
             <div class="container">
@@ -169,6 +175,64 @@
             </div>
           </footer>
 
-    </div>    
+    </div>   
+
 </body>
+
 </html>
+
+<script type="text/javascript">
+
+$(".submit").on("click", function(event){
+    event.preventDefault();
+
+    var scoresArray = [
+        parseInt($("#q1").val().trim()),
+        parseInt($("#q2").val().trim()),
+        parseInt($("#q3").val().trim()),
+        parseInt($("#q4").val().trim()),
+        parseInt($("#q5").val().trim()),
+        parseInt($("#q6").val().trim()),
+        parseInt($("#q7").val().trim()),
+        parseInt($("#q8").val().trim()),
+        parseInt($("#q9").val().trim()),
+        parseInt($("#q10").val().trim()),
+        ];
+
+    console.log(scoresArray);
+
+    // Grabbing information from form
+    var newPerson = {
+        name: $("#name").val().trim(),
+        photo: $("#photo").val().trim(),
+        scores: scoresArray
+      
+    };
+
+    console.log(newPerson);
+
+
+});
+
+function runFriendQuery() {
+        var currentURL = window.location.origin;
+
+        $.ajax({url: currentURL + "/api/survey", method: "GET"})
+
+            .done(function(data){
+
+                console.log("----------------------------------");
+                console.log("URL: " + currentURL + "/api/survey");
+                console.log("----------------------------------");
+                console.log(data)
+                console.log("----------------------------------");
+
+                for (var i = 0; i < data.length; i++) {
+                    console.log(data[i])
+                }
+        })
+    }
+
+runFriendQuery();
+
+</script>
