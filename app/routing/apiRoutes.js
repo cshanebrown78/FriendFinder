@@ -1,16 +1,20 @@
-var  friendArray = require('../data/friends.js');
+var path = require('path'); 
+var friendArray = require('../data/friends.js');
 
 module.exports = function (app) {
     
-    app.get('/api/survey', function(req, res) {
+    app.get('/api/friends', function(req, res) {
         res.json(friendArray);
     });
 
-    app.post("/api/survey", function(req, res) {
+    app.post('/api/friends', function(req, res) {
         
         var newFriend = req.body
+        console.log('newFriend = ' + JSON.stringify(newFriend))
+        
 
         var friendScores = newFriend.scores;
+        console.log(friendScores);
 
         var bestMatchName = "";
         var bestMatchPic = "";
@@ -20,15 +24,19 @@ module.exports = function (app) {
 
             var diff = 0
             
-            for (var j = 0; j < friendScores.length; j++) {
-                diff += Math.abs(friendsArray[i].scores[j]-friendScores[j]);
+            for (var j = 0; j < 10; j++) {
+                diff += Math.abs(friendArray[i].scores[j]-friendScores[j]);
                 if (diff < difference) {
                     difference = diff
-                    bestMatchName = friendsArray[i].name;
-                    bestMatchPic = friendsArray[i].photo;
+                    bestMatchName = friendArray[i].name;
+                    bestMatchPic = friendArray[i].photo;
                 }
             }
         }
+
+        console.log("---------Match------------")
+        console.log(bestMatchName);
+        console.log(bestMatchPic);
 
         friendArray.push(newFriend);
 

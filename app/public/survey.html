@@ -14,15 +14,17 @@
     <div class = "container">
         <h1>Survey Questions</h1><br>
         <hr>
-        <h3>About you</h3>
-        <form role="form">
+        <h3>About you</h3><br>
+        <form id = "form1">
             <div class="form-group">
                 <label for="name">Name (Required)</label><br>
-                <input type="text" id="name" name="name" class="form-control" required>
+                <input type="text" id="name" name="name" class="form-control" required/>
+                
             </div>
             <div class="form-group">
-                <label for="photo">Photo Link (Required)</label>
-                <input type="text" id="photo" name="photo"  class="form-control" required><br>
+                <label for="photo">Photo Link (Required)</label><br>
+                <input type="text" id="photo" name="photo" class="form-control" required/>
+                <br>
             </div>
             <hr>
             <div class="form-group">
@@ -163,9 +165,11 @@
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5 (Strongly Agree)</option>
-                </select>
-            </div><br>
-            <button type="submit" class="btn btn-primary btn-lg btn-block submit">Submit</button>
+                </select> 
+                <br>
+                <br>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block" id="userInfo">Submit</button>
         </form><br>
         <hr>
 
@@ -175,18 +179,53 @@
             </div>
           </footer>
 
-    </div>   
+    </div>
+    
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+              <h3>Your Best Match is:</h3>
+              <h4 id="bestMatch"></h4>
+              <img id="matchImg" width="600" src="">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
 
 </body>
 
 </html>
 
 <script type="text/javascript">
+$(document).ready(function() {
 
-$(".submit").on("click", function(event){
+$("#userInfo").on("click", function(event){
     event.preventDefault();
+    // theName = $"#name";
+    // thePic = $"#photo";
+    // if!theName.value 
+        // alert"Name is Required"
+        // return false;
+    //     else if !thePic.value  
+        // alert"Photo link required"
+    //  else 
 
-    var scoresArray = [
+    // Grabs info from from 
+    var newPerson = {
+        name: $("#name").val().trim(),
+        photo: $("#photo").val().trim(),
+        scores:[
         parseInt($("#q1").val().trim()),
         parseInt($("#q2").val().trim()),
         parseInt($("#q3").val().trim()),
@@ -196,43 +235,30 @@ $(".submit").on("click", function(event){
         parseInt($("#q7").val().trim()),
         parseInt($("#q8").val().trim()),
         parseInt($("#q9").val().trim()),
-        parseInt($("#q10").val().trim()),
-        ];
-
-    console.log(scoresArray);
-
-    // Grabbing information from form
-    var newPerson = {
-        name: $("#name").val().trim(),
-        photo: $("#photo").val().trim(),
-        scores: scoresArray
-      
-    };
+        parseInt($("#q1").val().trim())
+        ]
+   };
 
     console.log(newPerson);
 
+    $.post('/api/friends', newPerson)
+        .done(function(data) {
+            $('#bestMatch').html(data.bestMatchName);
+		    	$("#matchImg").attr("src", data.bestMatchPic);
+
+		    	// Pop open the modal dialog
+      			$('#myModal').modal('open');
+        })
+        
+    
+
+
+    
+
+
+    });
+
 
 });
-
-function runFriendQuery() {
-        var currentURL = window.location.origin;
-
-        $.ajax({url: currentURL + "/api/survey", method: "GET"})
-
-            .done(function(data){
-
-                console.log("----------------------------------");
-                console.log("URL: " + currentURL + "/api/survey");
-                console.log("----------------------------------");
-                console.log(data)
-                console.log("----------------------------------");
-
-                for (var i = 0; i < data.length; i++) {
-                    console.log(data[i])
-                }
-        })
-    }
-
-runFriendQuery();
 
 </script>
