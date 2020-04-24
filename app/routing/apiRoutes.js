@@ -27,16 +27,15 @@ module.exports = function (app) {
             
             for (var j = 0; j < friendScores.length; j++) {
                 diff += Math.abs(friendArray[i].scores[j]-friendScores[j]);
-                console.log(friendArray[i].name + "---" + diff + "----" + j )
-                console.log("Diff = " + diff);
-                console.log("Difference = " + difference);
-                if (diff < difference) {
-                    difference = diff
-                    console.log("New Difference =" + difference)
-                    bestMatchName = friendArray[i].name;
-                    bestMatchPic = friendArray[i].photo;
-                }
+                // console.log("Difference = " + difference);
+            }  
+
+            if (diff < difference) {
+                difference = diff
+                bestMatchName = friendArray[i].name;
+                bestMatchPic = friendArray[i].photo;
             }
+            
         }
 
         // console.log("---------Match------------")

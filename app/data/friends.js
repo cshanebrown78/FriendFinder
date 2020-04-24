@@ -65,7 +65,7 @@ var friendArray = [
     },
     {
         name: "Ellie Woodcomb",
-        photo: "",
+        photo: "https://vignette.wikia.nocookie.net/chuck/images/6/67/Ellie.jpg/revision/latest/scale-to-width-down/340?cb=20200410154304",
         scores: [
             5,
             5,
