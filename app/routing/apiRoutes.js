@@ -9,11 +9,12 @@ module.exports = function (app) {
 
     app.post('/api/friends', function(req, res) {
         
-        var newFriend = req.body
-        console.log('newFriend = ' + JSON.stringify(newFriend))
+        var newPerson = req.body
+        // console.log(newPerson);
+        // console.log('newFriend = ' + JSON.stringify(newPerson))
         
 
-        var friendScores = newFriend.scores;
+        var friendScores = newPerson.scores;
         console.log(friendScores);
 
         var bestMatchName = "";
@@ -24,23 +25,28 @@ module.exports = function (app) {
 
             var diff = 0
             
-            for (var j = 0; j < 10; j++) {
+            for (var j = 0; j < friendScores.length; j++) {
                 diff += Math.abs(friendArray[i].scores[j]-friendScores[j]);
+                console.log(friendArray[i].name + "---" + diff + "----" + j )
+                console.log("Diff = " + diff);
+                console.log("Difference = " + difference);
                 if (diff < difference) {
                     difference = diff
+                    console.log("New Difference =" + difference)
                     bestMatchName = friendArray[i].name;
                     bestMatchPic = friendArray[i].photo;
                 }
             }
         }
 
-        console.log("---------Match------------")
-        console.log(bestMatchName);
-        console.log(bestMatchPic);
+        // console.log("---------Match------------")
+        // console.log(bestMatchName);
+        // console.log(bestMatchPic);
 
-        friendArray.push(newFriend);
+        friendArray.push(newPerson);
 
-        res.json({bestMatchName: bestMatchName, bestMatchPic: BestMatchPic})
+        // res.json({bestMatchName: bestMatchName, bestMatchPic: BestMatchPic})
+        res.json({matchName: bestMatchName, matchPic: bestMatchPic })
     });
 
 }
