@@ -30,7 +30,7 @@
             type="text"
             id="name"
             name="name"
-            class="form-control"
+            class="form-control validation"
             required
           />
         </div>
@@ -40,7 +40,7 @@
             type="text"
             id="photo"
             name="photo"
-            class="form-control"
+            class="form-control validation"
             required
           />
           <br />
@@ -53,7 +53,7 @@
             Your mind is always buzzing with unexplored ideas and plans.
           </p>
           <!-- </label><br> -->
-          <select id="q1" name="q1">
+          <select id="q1" class="validation" name="q1">
             <option>Select an Option</option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -70,7 +70,7 @@
             imagination.
           </p>
           <!-- </label> -->
-          <select id="q2" name="q2">
+          <select id="q2" class="validation" name="q2">
             <option>Select an option</option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -87,7 +87,7 @@
             pressure.
           </p>
           <!-- </label> -->
-          <select id="q3" name="q3">
+          <select id="q3" class="validation" name="q3">
             <option>Select an option</option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -103,7 +103,7 @@
             You rarely do something just out of sheer curiosity.
           </p>
           <!-- </label> -->
-          <select id="q4" name="q4">
+          <select id="q4" class="validation" name="q4">
             <option>Select an option</option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -117,7 +117,7 @@
           <h3>Question 5</h3>
           <p style="font-size: 18px;">People can rarely upset you.</p>
           <!-- </label> -->
-          <select id="q5" name="q5">
+          <select id="q5" class="validation" name="q5">
             <option>Select an option</option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -133,7 +133,7 @@
             It is often difficult for you to relate to other people’s feelings.
           </p>
           <!-- </label> -->
-          <select id="q6" name="q6">
+          <select id="q6" class="validation" name="q6">
             <option>Select an option</option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -150,7 +150,7 @@
             sensitivities.
           </p>
           <!-- </label> -->
-          <select id="q7" name="q7">
+          <select id="q7" class="validation" name="q7">
             <option>Select an option</option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -166,7 +166,7 @@
             You rarely get carried away by fantasies and ideas.
           </p>
           <!-- </label> -->
-          <select id="q8" name="q8">
+          <select id="q8" class="validation" name="q8">
             <option>Select an option</option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -183,7 +183,7 @@
             whether they are supported by facts or not.
           </p>
           <!-- </label> -->
-          <select id="q9" name="q9">
+          <select id="q9" class="validation" name="q9">
             <option>Select an option</option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -199,7 +199,7 @@
             You feel more energetic after spending time with a group of people.
           </p>
           <!-- </label> -->
-          <select id="q10" name="q10">
+          <select id="q10" class="validation" name="q10">
             <option>Select an option</option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -261,43 +261,49 @@
   $(document).ready(function () {
     $("#userInfo").on("click", function (event) {
       event.preventDefault();
-      // theName = $"#name";
-      // thePic = $"#photo";
-      // if!theName.value
-      // alert"Name is Required"
-      // return false;
-      //     else if !thePic.value
-      // alert"Photo link required"
-      //  else
+
+      function formValidation() {
+        var isValid = true;
+        $(".form-control").each(function(){
+          if($(this).val() === ""){
+            isValid = false;
+            }
+        });
+
+        return isValid;
+      }
 
       // Grabs info from from
-      var newPerson = {
-        name: $("#name").val().trim(),
-        photo: $("#photo").val().trim(),
-        scores: [
-          $("#q1").val().trim(),
-          $("#q2").val().trim(),
-          $("#q3").val().trim(),
-          $("#q4").val().trim(),
-          $("#q5").val().trim(),
-          $("#q6").val().trim(),
-          $("#q7").val().trim(),
-          $("#q8").val().trim(),
-          $("#q9").val().trim(),
-          $("#q10").val().trim(),
-        ],
-      };
+      if (formValidation()) {
+        var newPerson = {
+          name: $("#name").val().trim(),
+          photo: $("#photo").val().trim(),
+          scores: [
+            $("#q1").val().trim(),
+            $("#q2").val().trim(),
+            $("#q3").val().trim(),
+            $("#q4").val().trim(),
+            $("#q5").val().trim(),
+            $("#q6").val().trim(),
+            $("#q7").val().trim(),
+            $("#q8").val().trim(),
+            $("#q9").val().trim(),
+            $("#q10").val().trim(),
+          ],
+        };
 
-      console.log(newPerson);
+        console.log(newPerson);
 
-      $.post("/api/friends", newPerson).done(function (data) {
-        $("#bestMatch").html(data.matchName);
-        $("#matchImg").attr("src", data.matchPic);
+        $.post("/api/friends", newPerson).done(function (data) {
+          $("#bestMatch").html(data.matchName);
+          $("#matchImg").attr("src", data.matchPic);
 
-        // Pop open the modal dialog
-        // $("#myModal").modal("open");
-        $("#myModal").modal("toggle")
-      });
+          // Pop open the modal dialog
+          $("#myModal").modal("toggle")
+        });
+      } else {
+        alert("Please be sure that all fields are answered")
+      }  
     });
   });
 </script>
