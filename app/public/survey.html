@@ -8,15 +8,16 @@
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    />
+      />
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+      />
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   </head>
   <body>
+    <!-- Survey Questions -->
     <div class="container">
       <h1>Survey Questions</h1>
       <br />
@@ -47,12 +48,10 @@
         </div>
         <hr />
         <div class="form-group">
-          <!-- <label for="q1"> -->
           <h3>Question 1</h3>
           <p style="font-size: 18px;">
             Your mind is always buzzing with unexplored ideas and plans.
           </p>
-          <!-- </label><br> -->
           <select id="q1" class="validation" name="q1">
             <option value="" disabled selected>Select an Option</option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -63,13 +62,11 @@
           </select>
         </div>
         <div class="form-group">
-          <!-- <label for="q2"> -->
           <h3>Question 2</h3>
           <p style="font-size: 18px;">
             Generally speaking, you rely more on your experience than your
             imagination.
           </p>
-          <!-- </label> -->
           <select id="q2" class="validation" name="q2">
             <option value="" disabled selected>Select an option</option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -80,13 +77,11 @@
           </select>
         </div>
         <div class="form-group">
-          <!-- <label for="q3"> -->
           <h3>Question 3</h3>
           <p style="font-size: 18px;">
             You find it easy to stay relaxed and focused even when there is some
             pressure.
           </p>
-          <!-- </label> -->
           <select id="q3" class="validation" name="q3">
             <option value="" disabled selected>Select an option</option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -97,12 +92,10 @@
           </select>
         </div>
         <div class="form-group">
-          <!-- <label for="q4"> -->
           <h3>Question 4</h3>
           <p style="font-size: 18px;">
             You rarely do something just out of sheer curiosity.
           </p>
-          <!-- </label> -->
           <select id="q4" class="validation" name="q4">
             <option value="" disabled selected>Select an option</option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -113,10 +106,8 @@
           </select>
         </div>
         <div class="form-group">
-          <!-- <label for="q5"> -->
           <h3>Question 5</h3>
           <p style="font-size: 18px;">People can rarely upset you.</p>
-          <!-- </label> -->
           <select id="q5" class="validation" name="q5">
             <option value="" disabled selected>Select an option</option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -127,12 +118,10 @@
           </select>
         </div>
         <div class="form-group">
-          <!-- <label for="q6"> -->
           <h3>Question 6</h3>
           <p style="font-size: 18px;">
             It is often difficult for you to relate to other people’s feelings.
           </p>
-          <!-- </label> -->
           <select id="q6" class="validation" name="q6">
             <option value="" disabled selected>Select an option</option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -143,13 +132,11 @@
           </select>
         </div>
         <div class="form-group">
-          <!-- <label for="q7"> -->
           <h3>Question 7</h3>
           <p style="font-size: 18px;">
             In a discussion, truth should be more important than people’s
             sensitivities.
           </p>
-          <!-- </label> -->
           <select id="q7" class="validation" name="q7">
             <option value="" disabled selected>Select an option</option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -160,12 +147,10 @@
           </select>
         </div>
         <div class="form-group">
-          <!-- <label for="q8"> -->
           <h3>Question 8</h3>
           <p style="font-size: 18px;">
             You rarely get carried away by fantasies and ideas.
           </p>
-          <!-- </label> -->
           <select id="q8" class="validation" name="q8">
             <option value="" disabled selected>Select an option</option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -176,13 +161,11 @@
           </select>
         </div>
         <div class="form-group">
-          <!-- <label for="q9"> -->
           <h3>Question 9</h3>
           <p style="font-size: 18px;">
             You think that everyone’s views should be respected regardless of
             whether they are supported by facts or not.
           </p>
-          <!-- </label> -->
           <select id="q9" class="validation" name="q9">
             <option value="" disabled selected>Select an option</option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -193,12 +176,10 @@
           </select>
         </div>
         <div class="form-group">
-          <!-- <label for="q10"> -->
           <h3>Question 10</h3>
           <p style="font-size: 18px;">
             You feel more energetic after spending time with a group of people.
           </p>
-          <!-- </label> -->
           <select id="q10" class="validation" name="q10">
             <option value="" disabled selected>Select an option</option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -210,6 +191,7 @@
           <br />
           <br />
         </div>
+        <!-- Submit Button -->
         <button
           type="submit"
           class="btn btn-primary btn-lg btn-block"
@@ -225,12 +207,13 @@
         <div class="container">
           <p>
             <a href="/api/friends">API Friends Link</a> |
-            <a href="">GitHub Repo</a>
+            <a href="https://github.com/cshanebrown78/FriendFinder">GitHub Repo</a>
           </p>
         </div>
       </footer>
     </div>
 
+    <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
       <div class="modal-dialog">
         <!-- Modal content-->
@@ -259,11 +242,13 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
+    // Submit button click event
     $("#userInfo").on("click", function (event) {
       event.preventDefault();
-
+      // Function to insure all questions are answered
       function formValidation() {
         var isValid = true;
+        // Loop that runs through each instance and if any are null then makes isValid = false
         $(".form-control").each(function(){
           if($(this).val() === ""){
             isValid = false;
@@ -273,7 +258,7 @@
         return isValid;
       }
 
-      // Grabs info from from
+      // Grabs info from Survey Form if all questions answered
       if (formValidation()) {
         var newPerson = {
           name: $("#name").val().trim(),
@@ -292,8 +277,8 @@
           ],
         };
 
-        console.log(newPerson);
-
+        
+        // Functions like an ajax call to pull in match info
         $.post("/api/friends", newPerson).done(function (data) {
           $("#bestMatch").html(data.matchName);
           $("#matchImg").attr("src", data.matchPic);
@@ -301,6 +286,7 @@
           // Pop open the modal dialog
           $("#myModal").modal("toggle")
         });
+      //Alert for if any of the questions are unanswered 
       } else {
         alert("Please be sure that all fields are answered")
       }  

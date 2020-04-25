@@ -1,35 +1,37 @@
+// Sets up required modules to use
 var path = require('path'); 
 var friendArray = require('../data/friends.js');
 
 module.exports = function (app) {
     
+    // Gets the information from the friends api
     app.get('/api/friends', function(req, res) {
         res.json(friendArray);
     });
 
+    // Posts the information once it pulled
     app.post('/api/friends', function(req, res) {
-        
+        // Sets the information from the survey to the variable newPerson
         var newPerson = req.body
-        // console.log(newPerson);
-        // console.log('newFriend = ' + JSON.stringify(newPerson))
-        
-
+       
+        // Sets the scores array for the user to the variable friendScores
         var friendScores = newPerson.scores;
-        console.log(friendScores);
-
+        
+        // Setting up variables for the match
         var bestMatchName = "";
         var bestMatchPic = "";
         var difference = 100;
 
+        // Loops through all the friends in the friendArray
         for (var i = 0; i < friendArray.length; i++) {
-
+            // var that will be used on finding best match
             var diff = 0
-            
+            // Loops through the friendArray scores and subtracts the newPerson scores and returns and sums all the absolute values
             for (var j = 0; j < friendScores.length; j++) {
                 diff += Math.abs(friendArray[i].scores[j]-friendScores[j]);
-                // console.log("Difference = " + difference);
+                
             }  
-
+            // checks to see if the friendArray score is lower than the current and if true stores the information and sets difference to the new score
             if (diff < difference) {
                 difference = diff
                 bestMatchName = friendArray[i].name;
@@ -38,13 +40,10 @@ module.exports = function (app) {
             
         }
 
-        // console.log("---------Match------------")
-        // console.log(bestMatchName);
-        // console.log(bestMatchPic);
-
+        // Pushes the newPerson information into the friendArray
         friendArray.push(newPerson);
 
-        // res.json({bestMatchName: bestMatchName, bestMatchPic: BestMatchPic})
+        // Object response for best match
         res.json({matchName: bestMatchName, matchPic: bestMatchPic })
     });
 

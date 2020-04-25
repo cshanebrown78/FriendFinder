@@ -1,3 +1,4 @@
+// Array of objects to match to
 var friendArray = [
     {
         name: "Chuck Bartowski",
